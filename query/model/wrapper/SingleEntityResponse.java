@@ -1,7 +1,7 @@
-package tsxdk.query.model.wrapper;
+package com.tsxbot.tsxdk.query.model.wrapper;
 
 
-import tsxdk.query.model.QueryResultSet;
+import com.tsxbot.tsxdk.query.model.QueryResultSet;
 
 import java.util.Map;
 

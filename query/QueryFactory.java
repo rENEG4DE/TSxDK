@@ -1,8 +1,8 @@
-package tsxdk.query;
+package com.tsxbot.tsxdk.query;
 
 
-import tsxdk.query.model.Query;
-import static tsxdk.query.model.LibQuery.*;
+import com.tsxbot.tsxdk.query.model.Query;
+import static com.tsxbot.tsxdk.query.model.LibQuery.*;
 
 /**
  *  TSxBot2

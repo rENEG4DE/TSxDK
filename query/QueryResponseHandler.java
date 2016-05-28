@@ -1,10 +1,10 @@
-package tsxdk.query;
+package com.tsxbot.tsxdk.query;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import tsxdk.io.IO;
-import tsxdk.query.model.Query;
-import tsxdk.query.model.QueryResponse;
+import com.tsxbot.tsxdk.io.IO;
+import com.tsxbot.tsxdk.query.model.Query;
+import com.tsxbot.tsxdk.query.model.QueryResponse;
 
 /**
  * TSxBot2

@@ -1,14 +1,14 @@
-package tsxdk.query;
+package com.tsxbot.tsxdk.query;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import tsxdk.query.model.QueryResponse;
-import tsxdk.query.model.QueryResultSet;
-import tsxdk.query.model.wrapper.ErrorResponse;
-import tsxdk.query.model.wrapper.SingleEntityResponse;
+import com.tsxbot.tsxdk.query.model.QueryResponse;
+import com.tsxbot.tsxdk.query.model.QueryResultSet;
+import com.tsxbot.tsxdk.query.model.wrapper.ErrorResponse;
+import com.tsxbot.tsxdk.query.model.wrapper.SingleEntityResponse;
 
 import java.io.IOException;
 import java.io.StringReader;

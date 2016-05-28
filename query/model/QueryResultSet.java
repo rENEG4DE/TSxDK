@@ -1,4 +1,4 @@
-package tsxdk.query.model;
+package com.tsxbot.tsxdk.query.model;
 
 import com.google.common.collect.Table;
 

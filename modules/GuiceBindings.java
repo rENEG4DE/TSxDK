@@ -1,16 +1,16 @@
-package tsxdk.modules;
+package com.tsxbot.tsxdk.modules;
 
 import com.google.inject.Singleton;
 import common.utility.Configuration;
-import tsxdk.io.IO;
-import tsxdk.io.IOImpl;
-import tsxdk.io.SocketConnection;
-import tsxdk.io.SocketConnectionImpl;
-import tsxdk.model.TSServerConnectionModel;
-import tsxdk.query.QueryChannel;
-import tsxdk.query.QueryChannelImpl;
-import tsxdk.query.QueryEngine;
-import tsxdk.query.QueryEngineImpl;
+import com.tsxbot.tsxdk.io.IO;
+import com.tsxbot.tsxdk.io.IOImpl;
+import com.tsxbot.tsxdk.io.SocketConnection;
+import com.tsxbot.tsxdk.io.SocketConnectionImpl;
+import com.tsxbot.tsxdk.model.TSServerConnectionModel;
+import com.tsxbot.tsxdk.query.QueryChannel;
+import com.tsxbot.tsxdk.query.QueryChannelImpl;
+import com.tsxbot.tsxdk.query.QueryEngine;
+import com.tsxbot.tsxdk.query.QueryEngineImpl;
 
 /*
 For learning-purposes, all bindings go here (to begin with)

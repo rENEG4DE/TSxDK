@@ -1,4 +1,4 @@
-package tsxdk.base;
+package com.tsxbot.tsxdk.base;
 
 import common.utility.Configuration;
 import org.slf4j.Logger;

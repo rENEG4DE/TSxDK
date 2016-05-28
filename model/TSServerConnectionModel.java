@@ -1,4 +1,4 @@
-package tsxdk.model;
+package com.tsxbot.tsxdk.model;
 
 /**
  * TSxBot2

@@ -1,11 +1,10 @@
-package tsxdk.query;
+package com.tsxbot.tsxdk.query;
 
 import com.google.common.base.Stopwatch;
 import com.google.inject.Inject;
 import common.defaults.SystemDescriptors;
-import common.utility.Configuration;
-import tsxdk.base.TSX;
-import tsxdk.query.model.Query;
+import com.tsxbot.tsxdk.base.TSX;
+import com.tsxbot.tsxdk.query.model.Query;
 
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;

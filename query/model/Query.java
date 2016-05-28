@@ -1,7 +1,7 @@
-package tsxdk.query.model;
+package com.tsxbot.tsxdk.query.model;
 
 
-import tsxdk.query.model.wrapper.ErrorResponse;
+import com.tsxbot.tsxdk.query.model.wrapper.ErrorResponse;
 
 import java.util.Objects;
 import java.util.Optional;

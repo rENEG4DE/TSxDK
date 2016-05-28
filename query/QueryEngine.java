@@ -1,8 +1,8 @@
-package tsxdk.query;
+package com.tsxbot.tsxdk.query;
 
 
-import tsxdk.io.IO;
-import tsxdk.query.model.Query;
+import com.tsxbot.tsxdk.io.IO;
+import com.tsxbot.tsxdk.query.model.Query;
 
 /**
  *  TSxBot2

@@ -1,4 +1,4 @@
-package tsxdk.io;
+package com.tsxbot.tsxdk.io;
 
 import java.io.BufferedReader;
 import java.io.PrintWriter;

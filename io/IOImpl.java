@@ -1,9 +1,9 @@
-package tsxdk.io;
+package com.tsxbot.tsxdk.io;
 
 import com.google.common.base.Strings;
 import com.google.inject.Inject;
 import common.defaults.SystemDescriptors;
-import tsxdk.base.TSX;
+import com.tsxbot.tsxdk.base.TSX;
 
 import java.io.BufferedReader;
 import java.io.IOException;

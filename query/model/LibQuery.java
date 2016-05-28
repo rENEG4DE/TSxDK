@@ -1,4 +1,4 @@
-package tsxdk.query.model;
+package com.tsxbot.tsxdk.query.model;
 
 /**
  *  TSxBot2

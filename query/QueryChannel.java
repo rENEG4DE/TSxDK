@@ -1,6 +1,6 @@
-package tsxdk.query;
+package com.tsxbot.tsxdk.query;
 
-import tsxdk.query.model.Query;
+import com.tsxbot.tsxdk.query.model.Query;
 
 import java.util.Optional;
 

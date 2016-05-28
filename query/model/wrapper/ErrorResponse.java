@@ -1,8 +1,8 @@
-package tsxdk.query.model.wrapper;
+package com.tsxbot.tsxdk.query.model.wrapper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import tsxdk.query.model.Query;
+import com.tsxbot.tsxdk.query.model.Query;
 
 /**
  *  TSxBot2
