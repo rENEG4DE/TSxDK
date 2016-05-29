@@ -1,4 +1,4 @@
-package com.tsxbot.tsxdk.query;
+package com.tsxbot.tsxdk.query.engine;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.HashBasedTable;

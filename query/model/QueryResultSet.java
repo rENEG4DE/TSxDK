@@ -10,7 +10,6 @@ import com.google.common.collect.Table;
  *  10:22
  */
 public class QueryResultSet implements QueryResponse {
-    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(QueryResultSet.class);
     private final Table<Integer, String, String> table;
 
     public QueryResultSet(Table<Integer, String, String> content) {

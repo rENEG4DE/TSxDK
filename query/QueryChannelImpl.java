@@ -2,12 +2,13 @@ package com.tsxbot.tsxdk.query;
 
 import com.google.common.base.Stopwatch;
 import com.google.inject.Inject;
-import common.defaults.SystemDescriptors;
+import com.tsxbot.tsxdk.base.SystemDescriptors;
 import com.tsxbot.tsxdk.base.TSX;
+import com.tsxbot.tsxdk.query.engine.QueryEngine;
 import com.tsxbot.tsxdk.query.model.Query;
 
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * TSxBot2
@@ -49,13 +50,22 @@ public class QueryChannelImpl extends TSX implements QueryChannel {
         }
     }
 
+    @Override
+    public Future<Query.ResponseContainer> deployGetFuture(Query query) {
+        final ExecutorService svc = Executors.newSingleThreadExecutor();
+        return svc.submit(() -> {
+            deployAndSync(query);
+            return expect().get();
+        });
+    }
+
     public Optional<Query.ResponseContainer> expect(Long maximumDelay) {
+        final Stopwatch watch = Stopwatch.createStarted();
         try {
-            final Stopwatch watch = Stopwatch.createStarted();
             if (!current.latchAwait(maximumDelay)) {
                 return Optional.empty();
             } else {
-                log.debug("Query took {} μs to yield a response", watch.elapsed(TimeUnit.MICROSECONDS));
+                log.debug("Expected response for {} μs ", watch.elapsed(TimeUnit.MICROSECONDS));
                 return Optional.of(current.getResponse());
             }
         } catch (InterruptedException e) {

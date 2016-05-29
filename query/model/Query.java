@@ -1,6 +1,9 @@
 package com.tsxbot.tsxdk.query.model;
 
 
+import com.google.inject.Inject;
+import com.tsxbot.tsxdk.query.QueryChannel;
+import com.tsxbot.tsxdk.query.engine.QueryFactory;
 import com.tsxbot.tsxdk.query.model.wrapper.ErrorResponse;
 
 import java.util.Objects;
@@ -103,11 +106,13 @@ public class Query {
     }
 
     public final class ResponseContainer {
+
         private Optional<QueryResponse> resultSet;
         private ErrorResponse error;
     }
 
     private final class ResponseAction {
+
         private final Consumer<ResponseContainer> responseAction;
 
         public ResponseAction(Consumer<ResponseContainer> consumer) {
@@ -117,5 +122,6 @@ public class Query {
         void triggerResponseAction(Query query) {
             responseAction.accept(query.getResponse());
         }
+
     }
 }

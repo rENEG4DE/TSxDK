@@ -1,7 +1,7 @@
-package com.tsxbot.tsxdk.query;
+package com.tsxbot.tsxdk.query.engine;
 
 import com.google.inject.Inject;
-import common.defaults.SystemDescriptors;
+import com.tsxbot.tsxdk.base.SystemDescriptors;
 import com.tsxbot.tsxdk.base.TSX;
 import com.tsxbot.tsxdk.io.IO;
 import com.tsxbot.tsxdk.query.model.Query;
@@ -33,12 +33,12 @@ public class QueryEngineImpl extends TSX implements QueryEngine  {
         log.info("Starting");
         this.tsIO = tsIO;
         this.responseHandler = new QueryResponseHandler(this);
-        log.info("Discarding startup messages");
+        log.debug("Discarding startup messages");
         discardTSBootMessages();
         executor = new ScheduledThreadPoolExecutor(1);
         final int rcvPeriod = cfg.QUERY_RECVPERIOD;
         executor.scheduleAtFixedRate(responseHandler, 0L, rcvPeriod, TimeUnit.MILLISECONDS);
-        log.info("Response-handler started with a period of {} ms", rcvPeriod);
+        log.debug("Response-handler started with a period of {} ms", rcvPeriod);
         log.info("Running");
     }
 

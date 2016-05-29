@@ -2,8 +2,8 @@ package com.tsxbot.tsxdk.io;
 
 import com.google.common.base.Strings;
 import com.google.inject.Inject;
-import common.defaults.SystemDescriptors;
 import com.tsxbot.tsxdk.base.TSX;
+import com.tsxbot.tsxdk.base.SystemDescriptors;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -72,18 +72,16 @@ public class IOImpl extends TSX implements IO {
         if (socket.isClosed()) {
             log.error("Can not write to closed socket");
             return false;
-        }
-
-        if (Strings.isNullOrEmpty(out)) {
+        } else if (Strings.isNullOrEmpty(out)) {
             log.warn("Empty write-argument");
             return false;
+        } else {
+            writer.println(out);
+            if (writer.checkError()) {
+                log.error("Writer suffered an error - output was probably not written - {}", out);
+                return false;
+            }
+            return true;
         }
-
-        writer.println(out);
-
-        if (writer.checkError()) {
-            log.error("Writer suffered an error - output was probably not written - {}", out);
-            return false;
-        } else return true;
     }
 }

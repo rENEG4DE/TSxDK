@@ -1,7 +1,7 @@
 package com.tsxbot.tsxdk.io;
 
 import com.google.inject.Inject;
-import common.defaults.SystemDescriptors;
+import com.tsxbot.tsxdk.base.SystemDescriptors;
 import com.tsxbot.tsxdk.base.TSX;
 import com.tsxbot.tsxdk.model.TSServerConnectionModel;
 
@@ -13,11 +13,11 @@ import java.net.Socket;
 import java.util.Objects;
 
 /**
- *  TSxBot2
- *  Coded by rENEG4DE
- *  on 15. of Mai
- *  2016
- *  20:44
+ * TSxBot2
+ * Coded by rENEG4DE
+ * on 15. of Mai
+ * 2016
+ * 20:44
  */
 public class SocketConnectionImpl extends TSX implements SocketConnection {
     private final Socket socket;
@@ -37,7 +37,7 @@ public class SocketConnectionImpl extends TSX implements SocketConnection {
 
     private Socket createSocket(String host, int port) {
         try {
-            return new Socket(host,port);
+            return new Socket(host, port);
         } catch (IOException e) {
             throwFatal("Could not create socket", e);
             return null;
@@ -78,7 +78,7 @@ public class SocketConnectionImpl extends TSX implements SocketConnection {
     }
 
     @Override
-    public void shutdown () {
+    public void shutdown() {
         try {
             socket.close();
         } catch (IOException e) {
