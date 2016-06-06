@@ -1,6 +1,8 @@
 package com.tsxbot.tsxdk.query.model.wrapper;
 
 
+import com.google.inject.assistedinject.Assisted;
+import com.tsxbot.tsxdk.query.model.QueryResponse;
 import com.tsxbot.tsxdk.query.model.QueryResultSet;
 
 import java.util.Map;
@@ -15,7 +17,7 @@ import java.util.Map;
 public class SingleEntityResponse extends ResponseWrapper {
     private final Map<String, String> resultSet;
 
-    public SingleEntityResponse(QueryResultSet queryResultSet) {
+    public SingleEntityResponse(@Assisted QueryResultSet queryResultSet) {
         super(queryResultSet);
         this.resultSet = queryResultSet.getTable().row(0);
     }

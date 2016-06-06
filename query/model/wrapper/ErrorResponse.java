@@ -1,5 +1,6 @@
 package com.tsxbot.tsxdk.query.model.wrapper;
 
+import com.google.inject.assistedinject.Assisted;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.tsxbot.tsxdk.query.model.Query;
@@ -16,7 +17,7 @@ public class ErrorResponse extends ResponseWrapper {
     private final int id;
     private final String message;
 
-    public ErrorResponse(SingleEntityResponse resultSet) {
+    public ErrorResponse(@Assisted SingleEntityResponse resultSet) {
         super(resultSet);
         id = Integer.parseInt(resultSet.get("id"));
         message = resultSet.get("msg");

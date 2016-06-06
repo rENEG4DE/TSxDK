@@ -1,7 +1,9 @@
 package com.tsxbot.tsxdk.modules;
 
 import com.google.inject.Singleton;
+import com.google.inject.assistedinject.FactoryModuleBuilder;
 import com.tsxbot.tsxdk.query.QueryGateway;
+import com.tsxbot.tsxdk.query.model.wrapper.*;
 import com.tsxbot.tsxdk.utility.Configuration;
 import com.tsxbot.tsxdk.io.IO;
 import com.tsxbot.tsxdk.io.IOImpl;
@@ -26,5 +28,12 @@ public class GuiceTSxDKBindings extends com.google.inject.AbstractModule {
         bind(QueryChannel.class).to(QueryChannelImpl.class);
         bind(QueryFactory.class).to(QueryFactoryImpl.class);
         bind(QueryGateway.class);
+
+//        install(new FactoryModuleBuilder()
+//                .implement(ResponseWrapper.class, ErrorResponse.class)
+//                .implement(ResponseWrapper.class, MultiEntityResponse.class)
+//                .implement(ResponseWrapper.class, SingleEntityResponse.class)
+//                .build(WrappedResponse.class));
+
     }
 }

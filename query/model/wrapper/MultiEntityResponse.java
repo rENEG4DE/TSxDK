@@ -1,6 +1,8 @@
 package com.tsxbot.tsxdk.query.model.wrapper;
 
 
+import com.google.inject.assistedinject.Assisted;
+import com.tsxbot.tsxdk.query.model.QueryResponse;
 import com.tsxbot.tsxdk.query.model.QueryResultSet;
 
 import java.util.Map;
@@ -16,7 +18,7 @@ import java.util.stream.Stream;
 public class MultiEntityResponse extends ResponseWrapper {
     private final QueryResultSet resultSet;
 
-    public MultiEntityResponse(QueryResultSet queryResponse) {
+    private MultiEntityResponse(QueryResultSet queryResponse) {
         super(queryResponse);
         this.resultSet = queryResponse;
     }
@@ -27,5 +29,9 @@ public class MultiEntityResponse extends ResponseWrapper {
 
     public Stream<Map.Entry<Integer, Map<String, String>>> stream() {
         return resultSet.getTable().rowMap().entrySet().stream();
+    }
+
+    public static MultiEntityResponse create(QueryResultSet response) {
+        return new MultiEntityResponse(response);
     }
 }

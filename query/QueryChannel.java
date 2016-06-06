@@ -17,12 +17,11 @@ public interface QueryChannel {
     void deploy (Query query);
     void deployAndSync(Query query);
     void deployAndWait(Query query, long milliseconds);
-    Future<Query.ResponseContainer> deployGetFuture(Query query);
 
+    Future<Query.ResponseContainer> deployGetFuture(Query query);
     Optional<Query.ResponseContainer> expect (Long maxDelay);
     Optional<Query.ResponseContainer> expect ();
     void await();
 
     void shutdown();
-
 }

@@ -106,6 +106,13 @@ public class Query {
     }
 
     public final class ResponseContainer {
+        public Optional<QueryResponse> getResultSet() {
+            return resultSet;
+        }
+
+        public ErrorResponse getError() {
+            return error;
+        }
 
         private Optional<QueryResponse> resultSet;
         private ErrorResponse error;
@@ -122,6 +129,5 @@ public class Query {
         void triggerResponseAction(Query query) {
             responseAction.accept(query.getResponse());
         }
-
     }
 }
