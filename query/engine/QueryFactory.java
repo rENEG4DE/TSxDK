@@ -37,4 +37,6 @@ public interface QueryFactory {
     Query channeldelete(int cid);
 
     Query logout();
+
+    Query clientlist();
 }

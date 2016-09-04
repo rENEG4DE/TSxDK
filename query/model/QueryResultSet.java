@@ -3,11 +3,11 @@ package com.tsxbot.tsxdk.query.model;
 import com.google.common.collect.Table;
 
 /**
- *  TSxBot2
- *  Coded by rENEG4DE
- *  on 27. of Mai
- *  2016
- *  10:22
+ * TSxBot2
+ * Coded by rENEG4DE
+ * on 27. of Mai
+ * 2016
+ * 10:22
  */
 public class QueryResultSet implements QueryResponse {
     private final Table<Integer, String, String> table;

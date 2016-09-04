@@ -4,11 +4,11 @@ package com.tsxbot.tsxdk.query.model.wrapper;
 import com.tsxbot.tsxdk.query.model.QueryResponse;
 
 /**
- *  TSxBot2
- *  Coded by rENEG4DE
- *  on 27. of Mai
- *  2016
- *  10:22
+ * TSxBot2
+ * Coded by rENEG4DE
+ * on 27. of Mai
+ * 2016
+ * 10:22
  */
 
 public abstract class ResponseWrapper implements QueryResponse {

@@ -2,8 +2,8 @@ package com.tsxbot.tsxdk.io;
 
 import com.google.common.base.Strings;
 import com.google.inject.Inject;
-import com.tsxbot.tsxdk.base.TSX;
 import com.tsxbot.tsxdk.base.SystemDescriptors;
+import com.tsxbot.tsxdk.base.TSX;
 
 import java.io.BufferedReader;
 import java.io.IOException;

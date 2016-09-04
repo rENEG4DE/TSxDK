@@ -8,7 +8,10 @@ import com.tsxbot.tsxdk.query.engine.QueryEngine;
 import com.tsxbot.tsxdk.query.model.Query;
 
 import java.util.Optional;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 /**
  * TSxBot2
@@ -43,18 +46,15 @@ public class QueryChannelImpl extends TSX implements QueryChannel {
     @Override
     public void deployAndWait(Query query, long milliseconds) {
         deploy(query);
-        try {
-            Thread.sleep(milliseconds);
-        } catch (InterruptedException e) {
-            log.error("Wait after deploy has been interrupted", e);
-        }
+        engine.stallOut(milliseconds);
     }
 
     @Override
     public Future<Query.ResponseContainer> deployGetFuture(Query query) {
         final ExecutorService svc = Executors.newSingleThreadExecutor();
         return svc.submit(() -> {
-            deployAndSync(query);
+            deploy(query);
+            svc.awaitTermination(cfg.QUERY_MAXIMUMRESPONSETIMEOUT, TimeUnit.MILLISECONDS);
             return expect().get();
         });
     }
@@ -63,9 +63,10 @@ public class QueryChannelImpl extends TSX implements QueryChannel {
         final Stopwatch watch = Stopwatch.createStarted();
         try {
             if (!current.latchAwait(maximumDelay)) {
+                log.debug("Response-timeout {} μs ", watch.elapsed(TimeUnit.MICROSECONDS));
                 return Optional.empty();
             } else {
-                log.debug("Expected response for {} μs ", watch.elapsed(TimeUnit.MICROSECONDS));
+                log.debug("Expected response to ({}) for {} μs ",current.getQueryString(), watch.elapsed(TimeUnit.MICROSECONDS));
                 return Optional.of(current.getResponse());
             }
         } catch (InterruptedException e) {
@@ -93,7 +94,7 @@ public class QueryChannelImpl extends TSX implements QueryChannel {
     }
 
     @Override
-    public void shutdown () {
+    public void shutdown() {
         engine.shutdown();
     }
 }

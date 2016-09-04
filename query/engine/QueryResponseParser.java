@@ -1,20 +1,22 @@
 package com.tsxbot.tsxdk.query.engine;
 
+import com.google.common.base.Stopwatch;
 import com.google.common.base.Strings;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import com.tsxbot.tsxdk.query.model.QueryResponse;
 import com.tsxbot.tsxdk.query.model.QueryResultSet;
 import com.tsxbot.tsxdk.query.model.wrapper.ErrorResponse;
 import com.tsxbot.tsxdk.query.model.wrapper.SingleEntityResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Ulli Gerhard on 09.10.2015.
@@ -26,7 +28,7 @@ class QueryResponseParser {
     public static QueryResponse parse(String response) throws IllegalArgumentException {
         log.debug("Parsing response ({})", response);
         if (!isValidResponse(response)) {
-            throw new IllegalArgumentException("Not a valid Teamspeak-response: (" + response + ")");
+            throw new IllegalArgumentException("Not a valid TS-query-response: (" + response + ")");
         }
 
         final QueryResponse result;
@@ -51,17 +53,14 @@ class QueryResponseParser {
         return response.startsWith("error") ? ResponseType.TYPE_ERROR : ResponseType.TYPE_RESULT;
     }
 
-    private static QueryResultSet parseResult(String response) {
-        return parseComplexResult(response);
-    }
-
     private static ErrorResponse parseError(String response) {
-        return new ErrorResponse(new SingleEntityResponse(parseComplexResult(response)));
+        return new ErrorResponse(new SingleEntityResponse(parseResult(response)));
     }
 
-    private static QueryResultSet parseComplexResult(String response) {
+    private static QueryResultSet parseResult(String response) {
         final Table<Integer, String, String> table = HashBasedTable.create();
         final int[] row = {0};
+        final Stopwatch watch = Stopwatch.createStarted();
 
         Arrays.stream(response.split("[|]")).map(s -> {
                     final Properties properties = new Properties();
@@ -80,6 +79,9 @@ class QueryResponseParser {
                 }
         );
 
+        final long microsPassed = watch.elapsed(TimeUnit.MICROSECONDS);
+
+        log.debug("Parsing complex result took {} microseconds", microsPassed);
         return new QueryResultSet(table);
     }
 

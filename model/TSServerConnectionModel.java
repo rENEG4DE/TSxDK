@@ -11,7 +11,8 @@ public class TSServerConnectionModel {
     private final String host;
     private final int port;
 
-    public TSServerConnectionModel(String host, int port) {
+    public TSServerConnectionModel(String host,
+                                   int port) {
         this.host = host;
         this.port = port;
     }

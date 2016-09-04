@@ -1,21 +1,21 @@
 package com.tsxbot.tsxdk.utility;
 
-import com.google.inject.Provider;
-import com.google.inject.Provides;
-import com.tsxbot.tsxdk.model.TSServerConnectionModel;
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
 /**
- *  TSxBot2
- *  Coded by rENEG4DE
- *  on 15. of Mai
- *  2016
- *  20:44
+ * TSxBot2
+ * Coded by rENEG4DE
+ * on 15. of Mai
+ * 2016
+ * 20:44
  */
-public class Configuration implements Provider<TSServerConnectionModel> {
+public class Configuration {
+
+    public Configuration() {
+    }
+
     private static final org.apache.commons.configuration.Configuration cfg = ConfigAccess.get();
 
     public final String SYSTEM_SERVERLABEL = cfg.getString("system.serverlabel");
@@ -31,22 +31,15 @@ public class Configuration implements Provider<TSServerConnectionModel> {
     public final Integer TSSERVER_PINGPERIOD = cfg.getInt("tsserver.pingPeriod");
 
     public final Integer QUERY_RECVPERIOD = cfg.getInt("query.receiverPeriod");
-    public final Integer QUERY_COMPLETEPERIOD = cfg.getInt("query.completionPeriod");
     public final Integer QUERY_PERSEC = cfg.getInt("query.perSecond");
-    public final Integer QUERY_COMPLETIONTICKS = cfg.getInt("query.completionTicks");
     public final Long QUERY_MAXIMUMRESPONSETIMEOUT = cfg.getLong("query.maximumResponseTimeout");
-
-    @Provides
-    public TSServerConnectionModel get() {
-        return new TSServerConnectionModel(this.TSSERVER_HOST, this.TSSERVER_PORT);
-    }
 
     public Map<String, String> getEnvironment() {
         final Map<String, String> result = new HashMap<>();
         final Iterator<String> cfgKeyIterator = cfg.getKeys();
 
         String current;
-        while(cfgKeyIterator.hasNext()) {
+        while (cfgKeyIterator.hasNext()) {
             current = cfgKeyIterator.next();
             result.put(current, cfg.getString(current));
         }

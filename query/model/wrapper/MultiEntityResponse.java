@@ -1,19 +1,16 @@
 package com.tsxbot.tsxdk.query.model.wrapper;
 
-
-import com.google.inject.assistedinject.Assisted;
-import com.tsxbot.tsxdk.query.model.QueryResponse;
 import com.tsxbot.tsxdk.query.model.QueryResultSet;
 
 import java.util.Map;
 import java.util.stream.Stream;
 
 /**
- *  TSxBot2
- *  Coded by rENEG4DE
- *  on 27. of Mai
- *  2016
- *  10:22
+ * TSxBot2
+ * Coded by rENEG4DE
+ * on 27. of Mai
+ * 2016
+ * 10:22
  */
 public class MultiEntityResponse extends ResponseWrapper {
     private final QueryResultSet resultSet;

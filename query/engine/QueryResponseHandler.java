@@ -1,10 +1,10 @@
 package com.tsxbot.tsxdk.query.engine;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import com.tsxbot.tsxdk.io.IO;
 import com.tsxbot.tsxdk.query.model.Query;
 import com.tsxbot.tsxdk.query.model.QueryResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * TSxBot2
@@ -37,5 +37,9 @@ class QueryResponseHandler implements Runnable {
         } catch (Exception e) {
             log.error("An Exception occured on trying to handle query-response-content", e);
         }
+    }
+
+    public static QueryResponseHandler create(QueryEngine queryEngine) {
+        return new QueryResponseHandler(queryEngine);
     }
 }

@@ -2,14 +2,15 @@ package com.tsxbot.tsxdk.query.engine;
 
 
 import com.tsxbot.tsxdk.query.model.Query;
+
 import static com.tsxbot.tsxdk.query.model.LibQuery.*;
 
 /**
- *  TSxBot2
- *  Coded by rENEG4DE
- *  on 27. of Mai
- *  2016
- *  10:22
+ * TSxBot2
+ * Coded by rENEG4DE
+ * on 27. of Mai
+ * 2016
+ * 10:22
  */
 public class QueryFactoryImpl implements QueryFactory {
     @Override
@@ -80,5 +81,10 @@ public class QueryFactoryImpl implements QueryFactory {
     @Override
     public Query logout() {
         return new Query(LOGOUT.get());
+    }
+
+    @Override
+    public Query clientlist() {
+        return new Query(CLIENTLIST.get());
     }
 }

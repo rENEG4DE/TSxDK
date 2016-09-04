@@ -1,11 +1,11 @@
 package com.tsxbot.tsxdk.query.model;
 
 /**
- *  TSxBot2
- *  Coded by rENEG4DE
- *  on 27. of Mai
- *  2016
- *  10:22
+ * TSxBot2
+ * Coded by rENEG4DE
+ * on 27. of Mai
+ * 2016
+ * 10:22
  */
 public interface QueryResponse {
     org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(QueryResponse.class);

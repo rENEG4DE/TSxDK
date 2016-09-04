@@ -8,7 +8,7 @@ package com.tsxbot.tsxdk.base;
  * 20:27
  */
 public enum SystemDescriptors implements TSX.SystemDescriptor {
-    IO, QUERY, UTILITY;
+    IO, QUERY, UTILITY, GATEWAY;
 
     @Override
     public String get() {

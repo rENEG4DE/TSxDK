@@ -12,13 +12,13 @@ import java.util.concurrent.TimeUnit;
 
 
 /**
- *  TSxBot2
- *  Coded by rENEG4DE
- *  on 27. of Mai
- *  2016
- *  10:22
+ * TSxBot2
+ * Coded by rENEG4DE
+ * on 27. of Mai
+ * 2016
+ * 10:22
  */
-public class QueryEngineImpl extends TSX implements QueryEngine  {
+public class QueryEngineImpl extends TSX implements QueryEngine {
     private final IO tsIO;
     private final ScheduledThreadPoolExecutor executor;
     private final QueryResponseHandler responseHandler;
@@ -26,14 +26,14 @@ public class QueryEngineImpl extends TSX implements QueryEngine  {
 
     private final int deployDelay = 1000 / cfg.QUERY_PERSEC;
     private long lastDeploy;
+    private long nextOut;
 
     @Inject
     public QueryEngineImpl(IO tsIO) {
         super(SystemDescriptors.QUERY, QueryEngine.class);
         log.info("Starting");
         this.tsIO = tsIO;
-        this.responseHandler = new QueryResponseHandler(this);
-        log.debug("Discarding startup messages");
+        this.responseHandler = QueryResponseHandler.create(this);
         discardTSBootMessages();
         executor = new ScheduledThreadPoolExecutor(1);
         final int rcvPeriod = cfg.QUERY_RECVPERIOD;
@@ -43,11 +43,12 @@ public class QueryEngineImpl extends TSX implements QueryEngine  {
     }
 
     private void discardTSBootMessages() {
+        log.debug("Discarding startup messages");
         String cur;
         do {
             cur = tsIO.in().orElse("");
             try {
-                Thread.sleep(cfg.QUERY_RECVPERIOD);
+                TimeUnit.MILLISECONDS.sleep(cfg.QUERY_RECVPERIOD);
             } catch (InterruptedException e) {
                 log.error("discardTSBootMessages-sleep was interrupted", e);
             }
@@ -63,14 +64,29 @@ public class QueryEngineImpl extends TSX implements QueryEngine  {
     }
 
     private void restrainQueryLoad() {
-        final long currentTime = System.currentTimeMillis();
+        long currentTime = System.currentTimeMillis();
+
+        //Handle stallOut
+        if (nextOut > currentTime) {
+            try {
+                TimeUnit.MILLISECONDS.sleep(nextOut - currentTime);
+            } catch (InterruptedException e) {
+                log.error("Something aweful happened", e);
+            }
+            currentTime = nextOut;
+            nextOut = 0L;
+        }
+
+        //Handle cfg.QUERY_PERSEC
         final long difference = currentTime - lastDeploy;
         final long suspend = deployDelay - difference;
 
-        if (suspend > 0) try {
-            Thread.sleep(suspend);
-        } catch (InterruptedException e) {
-            log.error("restrainQueryLoad-sleep was interrupted", e);
+        if (suspend > 0) {
+            try {
+                TimeUnit.MILLISECONDS.sleep(suspend);
+            } catch (InterruptedException e) {
+                log.error("restrainQueryLoad-sleep was interrupted", e);
+            }
         }
     }
 
@@ -101,16 +117,16 @@ public class QueryEngineImpl extends TSX implements QueryEngine  {
     }
 
     @Override
-    public void shutdown () {
+    public void shutdown() {
+        log.info("Shutting down");
         executor.shutdown();
         tsIO.shutdown();
+        log.info("Shutdown complete");
     }
 
-    private void handleDeadQueries() {
-        log.warn("Query-timeout, removing {} queries", deployedQueries.size());
-        for (Query query : deployedQueries) {
-            log.debug("Unanswered Query: {}, Response is {}, Error is {}", query.getQueryString(), query.getResult(), query.getError());
-        }
-        deployedQueries.clear();
+    @Override
+    public void stallOut(long milliseconds) {
+        log.debug("Stalling query-output for {} ms", milliseconds);
+        nextOut = System.currentTimeMillis() + milliseconds;
     }
 }

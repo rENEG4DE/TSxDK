@@ -1,11 +1,11 @@
 package com.tsxbot.tsxdk.query.model;
 
 /**
- *  TSxBot2
- *  Coded by rENEG4DE
- *  on 27. of Mai
- *  2016
- *  10:22
+ * TSxBot2
+ * Coded by rENEG4DE
+ * on 27. of Mai
+ * 2016
+ * 10:22
  */
 public enum LibQuery {
     LOGIN("login client_login_name=%s client_login_password=%s"),
@@ -20,6 +20,7 @@ public enum LibQuery {
     CHANNELDELETE("channeldelete cid=%d force=1"),
     SERVERPROCESSSTOP("serverprocessstop"),
     PRIVILEGEKEYDELETE("privilegekeydelete token=%s"),
+    CLIENTLIST("clientlist"),
     USE("use sid=%d"),
     LOGOUT("logout");
 

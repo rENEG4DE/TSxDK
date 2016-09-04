@@ -1,9 +1,6 @@
 package com.tsxbot.tsxdk.query.model;
 
 
-import com.google.inject.Inject;
-import com.tsxbot.tsxdk.query.QueryChannel;
-import com.tsxbot.tsxdk.query.engine.QueryFactory;
 import com.tsxbot.tsxdk.query.model.wrapper.ErrorResponse;
 
 import java.util.Objects;

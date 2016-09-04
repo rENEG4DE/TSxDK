@@ -5,14 +5,16 @@ import com.tsxbot.tsxdk.io.IO;
 import com.tsxbot.tsxdk.query.model.Query;
 
 /**
- *  TSxBot2
- *  Coded by rENEG4DE
- *  on 27. of Mai
- *  2016
- *  10:22
+ * TSxBot2
+ * Coded by rENEG4DE
+ * on 27. of Mai
+ * 2016
+ * 10:22
  */
 public interface QueryEngine {
     void deploy(Query query);
+
+    void stallOut(long milliseconds);
 
     IO getIO();
 

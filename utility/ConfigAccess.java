@@ -1,17 +1,17 @@
 package com.tsxbot.tsxdk.utility;
 
 import com.tsxbot.tsxdk.base.SystemDescriptors;
+import com.tsxbot.tsxdk.base.TSX;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
-import com.tsxbot.tsxdk.base.TSX;
 
 /**
- *  TSxBot2
- *  Coded by rENEG4DE
- *  on 15. of Mai
- *  2016
- *  20:44
+ * TSxBot2
+ * Coded by rENEG4DE
+ * on 15. of Mai
+ * 2016
+ * 20:44
  */
 class ConfigAccess {
     private static final String DEFAULT_PROPERTIES = "default.properties";
@@ -22,10 +22,6 @@ class ConfigAccess {
 
     static {
         try {
-            //Java can be ugly...
-//            final PropertiesConfiguration config =
-//                    (PropertiesConfiguration) (cfg =
-//                            new PropertiesConfiguration(DEFAULT_PROPERTIES));
             final PropertiesConfiguration config = new PropertiesConfiguration(DEFAULT_PROPERTIES);
             config.copy(new PropertiesConfiguration(TSXDK_PROPERTIES));
             config.copy(new PropertiesConfiguration(CLIENT_PROPERTIES));

@@ -1,23 +1,22 @@
 package com.tsxbot.tsxdk.query.model.wrapper;
 
-import com.google.inject.assistedinject.Assisted;
+import com.tsxbot.tsxdk.query.model.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.tsxbot.tsxdk.query.model.Query;
 
 /**
- *  TSxBot2
- *  Coded by rENEG4DE
- *  on 27. of Mai
- *  2016
- *  10:22
+ * TSxBot2
+ * Coded by rENEG4DE
+ * on 27. of Mai
+ * 2016
+ * 10:22
  */
 public class ErrorResponse extends ResponseWrapper {
     private final Logger log = LoggerFactory.getLogger(ErrorResponse.class);
     private final int id;
     private final String message;
 
-    public ErrorResponse(@Assisted SingleEntityResponse resultSet) {
+    public ErrorResponse(SingleEntityResponse resultSet) {
         super(resultSet);
         id = Integer.parseInt(resultSet.get("id"));
         message = resultSet.get("msg");
