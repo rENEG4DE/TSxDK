@@ -19,6 +19,7 @@ public class Configuration {
     private static final org.apache.commons.configuration.Configuration cfg = ConfigAccess.get();
 
     public final String SYSTEM_SERVERLABEL = cfg.getString("system.serverlabel");
+    public final Boolean SYSTEM_SHOWPROFLOG = cfg.getBoolean("system.showProfLog");
     public final String TSSERVER_HOST = cfg.getString("tsserver.host");
     public final Integer TSSERVER_PORT = cfg.getInt("tsserver.port");
     public final String TSSERVER_LOGIN = cfg.getString("tsserver.login");
@@ -33,6 +34,10 @@ public class Configuration {
     public final Integer QUERY_RECVPERIOD = cfg.getInt("query.receiverPeriod");
     public final Integer QUERY_PERSEC = cfg.getInt("query.perSecond");
     public final Long QUERY_MAXIMUMRESPONSETIMEOUT = cfg.getLong("query.maximumResponseTimeout");
+
+    public boolean hideProfiling () {
+        return !SYSTEM_SHOWPROFLOG;
+    }
 
     public Map<String, String> getEnvironment() {
         final Map<String, String> result = new HashMap<>();

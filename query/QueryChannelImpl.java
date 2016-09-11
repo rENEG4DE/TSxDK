@@ -39,12 +39,20 @@ public class QueryChannelImpl extends TSX implements QueryChannel {
 
     @Override
     public void deployAndSync(Query query) {
+//        deploy(query);
+//        deployAndSync(query);
+//        deployAndBlock(query, 10);
+//        deployGetFuture(query);
+//        expect(100l);
+//        expect();
+//        await();
+//        shutdown();
         deploy(query);
         await();
     }
 
     @Override
-    public void deployAndWait(Query query, long milliseconds) {
+    public void deployAndBlock(Query query, long milliseconds) {
         deploy(query);
         engine.stallOut(milliseconds);
     }
@@ -52,27 +60,39 @@ public class QueryChannelImpl extends TSX implements QueryChannel {
     @Override
     public Future<Query.ResponseContainer> deployGetFuture(Query query) {
         final ExecutorService svc = Executors.newSingleThreadExecutor();
+        deploy(query);
         return svc.submit(() -> {
-            deploy(query);
-            svc.awaitTermination(cfg.QUERY_MAXIMUMRESPONSETIMEOUT, TimeUnit.MILLISECONDS);
-            return expect().get();
+//            svc.awaitTermination(cfg.QUERY_MAXIMUMRESPONSETIMEOUT, TimeUnit.MILLISECONDS);
+            expect(query);
+            return query.getResponse();
         });
     }
 
-    public Optional<Query.ResponseContainer> expect(Long maximumDelay) {
+
+    private Optional<Query.ResponseContainer> expect(Long microsecondDelay, Query query) {
         final Stopwatch watch = Stopwatch.createStarted();
         try {
-            if (!current.latchAwait(maximumDelay)) {
-                log.debug("Response-timeout {} μs ", watch.elapsed(TimeUnit.MICROSECONDS));
+            if (!query.latchAwait(microsecondDelay)) {
+                log.debug("Response-timeout {}μs ", watch.elapsed(TimeUnit.MICROSECONDS));
                 return Optional.empty();
             } else {
-                log.debug("Expected response to ({}) for {} μs ",current.getQueryString(), watch.elapsed(TimeUnit.MICROSECONDS));
-                return Optional.of(current.getResponse());
+                if (!cfg.hideProfiling()) {
+                    log.debug("Expected response for {}μs (query={})  ", watch.elapsed(TimeUnit.MICROSECONDS), query.getQueryString());
+                }
+                return Optional.of(query.getResponse());
             }
         } catch (InterruptedException e) {
-            log.warn("Query-latch-await was interrupted", e);
+            warnInterrupted();
             return Optional.empty();
         }
+    }
+
+    private Optional<Query.ResponseContainer> expect(Long microsecondDelay) {
+        return expect(microsecondDelay, current);
+    }
+
+    private Optional<Query.ResponseContainer> expect(Query query) {
+        return expect(cfg.QUERY_MAXIMUMRESPONSETIMEOUT, query);
     }
 
     @Override
@@ -81,7 +101,7 @@ public class QueryChannelImpl extends TSX implements QueryChannel {
         if (result.isPresent()) {
             return result;
         } else {
-            log.warn("Response to Query ({}) took too long - interrupted", current.getQueryString());
+            warnInterrupted();
             return Optional.empty();
         }
     }
@@ -89,12 +109,17 @@ public class QueryChannelImpl extends TSX implements QueryChannel {
     @Override
     public void await() {
         if (!expect(cfg.QUERY_MAXIMUMRESPONSETIMEOUT).isPresent()) {
-            log.warn("Response to Query ({}) took too long - interrupted", current.getQueryString());
+            warnInterrupted();
+            //discard logic for unresponded query
         }
     }
 
     @Override
     public void shutdown() {
         engine.shutdown();
+    }
+
+    private void warnInterrupted() {
+        log.warn("Response to Query ({}) took too long - interrupted", current.getQueryString());
     }
 }

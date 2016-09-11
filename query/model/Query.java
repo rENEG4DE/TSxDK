@@ -99,7 +99,7 @@ public class Query {
     }
 
     public boolean latchAwait(Long maxDelay) throws InterruptedException {
-        return latch.await(maxDelay, TimeUnit.MILLISECONDS);
+        return latch.await(maxDelay, TimeUnit.MICROSECONDS);
     }
 
     public final class ResponseContainer {

@@ -8,6 +8,7 @@ import com.tsxbot.tsxdk.query.model.QueryResponse;
 import com.tsxbot.tsxdk.query.model.QueryResultSet;
 import com.tsxbot.tsxdk.query.model.wrapper.ErrorResponse;
 import com.tsxbot.tsxdk.query.model.wrapper.SingleEntityResponse;
+import com.tsxbot.tsxdk.utility.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,6 +25,7 @@ import java.util.concurrent.TimeUnit;
  */
 class QueryResponseParser {
     private static final Logger log = LoggerFactory.getLogger(QueryResponseParser.class);
+    private static final Configuration cfg = new Configuration();
 
     public static QueryResponse parse(String response) throws IllegalArgumentException {
         log.debug("Parsing response ({})", response);
@@ -79,9 +81,12 @@ class QueryResponseParser {
                 }
         );
 
-        final long microsPassed = watch.elapsed(TimeUnit.MICROSECONDS);
+        if (!cfg.hideProfiling()) {
+            final long microsPassed = watch.elapsed(TimeUnit.MICROSECONDS);
+            log.debug("Parsing result took {} microseconds", microsPassed);
 
-        log.debug("Parsing complex result took {} microseconds", microsPassed);
+        }
+
         return new QueryResultSet(table);
     }
 
