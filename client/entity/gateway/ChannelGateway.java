@@ -2,6 +2,7 @@ package com.tsxbot.tsxdk.client.entity.gateway;
 
 import com.tsxbot.tsxdk.client.entity.EntityGateway;
 import com.tsxbot.tsxdk.query.QueryGateway;
+import com.tsxbot.tsxdk.query.model.Query;
 import com.tsxbot.tsxdk.query.model.QueryResponse;
 
 import java.util.Optional;
@@ -23,7 +24,10 @@ public class ChannelGateway extends EntityGateway {
     }
 
     private Optional<QueryResponse> getChannelSet() {
-        return claimResponse().get().getResultSet();
+        final Optional<Query.ResponseContainer> response = claimResponse();
+        return response.isPresent() ?
+                response.get().getResultSet() :
+                Optional.empty();
     }
 
     public Integer[] getChannelIds() throws ExecutionException, InterruptedException {

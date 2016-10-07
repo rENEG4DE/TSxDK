@@ -72,12 +72,13 @@ public class QueryChannelImpl extends TSX implements QueryChannel {
     private Optional<Query.ResponseContainer> expect(Long microsecondDelay, Query query) {
         final Stopwatch watch = Stopwatch.createStarted();
         try {
+            log.debug("Waiting for response of query {}", query.getQueryString());
             if (!query.latchAwait(microsecondDelay)) {
-                log.debug("Response-timeout {}μs ", watch.elapsed(TimeUnit.MICROSECONDS));
+                log.debug("Response-timeout {}μs (query={})", watch.elapsed(TimeUnit.MICROSECONDS), query.getQueryString());
                 return Optional.empty();
             } else {
-                if (!cfg.hideProfiling()) {
-                    log.debug("Expected response for {}μs (query={})  ", watch.elapsed(TimeUnit.MICROSECONDS), query.getQueryString());
+                if (cfg.showProfiling()) {
+                    log.debug("Got response after {}μs (query={})  ", watch.elapsed(TimeUnit.MICROSECONDS), query.getQueryString());
                 }
                 return Optional.of(query.getResponse());
             }

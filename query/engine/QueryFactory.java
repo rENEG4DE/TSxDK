@@ -20,6 +20,8 @@ public interface QueryFactory {
 
     Query serverinfo();
 
+    Query servernotifyregister(String eventName);
+
     Query stopvirtualserver(int serverId);
 
     Query deletevirtualserver(int serverId);

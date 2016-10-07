@@ -14,6 +14,7 @@ public enum LibQuery {
     SERVERSTOP("serverstop sid=%d"),
     SERVERSTART("serverstart sid=%d"),
     SERVERDELETE("serverdelete sid=%d"),
+    SERVERNOTIFYREGISTER("servernotifyregister event=%s"),
     CHANNELLIST("channellist"),
     CHANNELCREATE("channelcreate channel_name=%s channel_password=%s channel_flag_permanent=1"),
     CHANNELINFO("channelinfo cid=%d"),

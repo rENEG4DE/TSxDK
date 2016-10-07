@@ -34,8 +34,19 @@ public class EntityGateway extends Gateway {
     }
 
     protected void update () {
+        update(dataQuery);
+        try {
+            futureQueryResponse.get();
+        } catch (InterruptedException e) {
+            log.error("Future was interrupted", e);
+        } catch (ExecutionException e) {
+            log.error("Exception while Future-execution", e);
+        }
+    }
+
+    protected void update (Query query) {
+        dataQuery = query;
         futureQueryResponse = queryChannel.deployGetFuture(dataQuery);
-        queryChannel.await();
     }
 
     protected <T> T[] collectAll(String field,

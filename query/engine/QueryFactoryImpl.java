@@ -39,6 +39,11 @@ public class QueryFactoryImpl implements QueryFactory {
     }
 
     @Override
+    public Query servernotifyregister(String eventName) {
+        return new Query(String.format(SERVERNOTIFYREGISTER.get(), eventName));
+    }
+
+    @Override
     public Query stopvirtualserver(int serverId) {
         return new Query(String.format(SERVERSTOP.get(), serverId));
     }

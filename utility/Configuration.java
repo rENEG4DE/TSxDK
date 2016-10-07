@@ -35,8 +35,8 @@ public class Configuration {
     public final Integer QUERY_PERSEC = cfg.getInt("query.perSecond");
     public final Long QUERY_MAXIMUMRESPONSETIMEOUT = cfg.getLong("query.maximumResponseTimeout");
 
-    public boolean hideProfiling () {
-        return !SYSTEM_SHOWPROFLOG;
+    public boolean showProfiling() {
+        return SYSTEM_SHOWPROFLOG;
     }
 
     public Map<String, String> getEnvironment() {
