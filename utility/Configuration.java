@@ -19,7 +19,10 @@ public class Configuration {
     private static final org.apache.commons.configuration.Configuration cfg = ConfigAccess.get();
 
     public final String SYSTEM_SERVERLABEL = cfg.getString("system.serverlabel");
+
     public final Boolean SYSTEM_SHOWPROFLOG = cfg.getBoolean("system.showProfLog");
+    public static final String SYSTEM_PLUGINPATH = cfg.getString("system.pluginPath");
+    public static final String SYSTEM_PLUGINCFG = cfg.getString("system.pluginConfig");
     public final String TSSERVER_HOST = cfg.getString("tsserver.host");
     public final Integer TSSERVER_PORT = cfg.getInt("tsserver.port");
     public final String TSSERVER_LOGIN = cfg.getString("tsserver.login");

@@ -30,7 +30,7 @@ public class ClientGateway extends EntityGateway {
                 Optional.empty();
     }
 
-    public Integer[] getClientIds() throws ExecutionException, InterruptedException {
+    public Integer[] getClientIds()   {
         final Optional<QueryResponse> optionalResultSet = getClientSet();
 
         if (optionalResultSet.isPresent()) {

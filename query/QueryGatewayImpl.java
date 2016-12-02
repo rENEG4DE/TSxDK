@@ -1,7 +1,6 @@
 package com.tsxbot.tsxdk.query;
 
 import com.google.inject.Inject;
-import com.tsxbot.tsxdk.base.Gateway;
 import com.tsxbot.tsxdk.query.engine.QueryFactory;
 
 public class QueryGatewayImpl extends QueryGateway {

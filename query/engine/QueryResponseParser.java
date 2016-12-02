@@ -84,7 +84,6 @@ class QueryResponseParser {
         if (cfg.showProfiling()) {
             final long microsPassed = watch.elapsed(TimeUnit.MICROSECONDS);
             log.debug("Parsing result took {} microseconds", microsPassed);
-
         }
 
         return new QueryResultSet(table);

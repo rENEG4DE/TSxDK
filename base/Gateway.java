@@ -4,7 +4,16 @@ import com.tsxbot.tsxdk.query.QueryChannel;
 import com.tsxbot.tsxdk.query.engine.QueryFactory;
 
 /**
- * Created by Lenovo on 04.09.2016.
+ * TSxBot2
+ * Coded by Lenovo
+ * on ${}
+ */
+/*
+ * TSxBot2
+ * Coded by rENEG4DE
+ * on 29. of Mai
+ * 2016
+ * 09:21
  */
 public class Gateway extends TSX{
     protected final QueryChannel queryChannel;

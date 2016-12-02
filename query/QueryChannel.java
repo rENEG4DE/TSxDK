@@ -31,7 +31,7 @@ public interface QueryChannel {
      * Best used for fast-responded commands like <b>login</b> or <b>use</b>,<p>
      * since those return a result before they have done their work.
      * @param query The query to deploy
-     * @param milliseconds The amount of <b>milliseconds</b> to wait
+     * @param milliseconds The amount of <b>milliseconds</b> to block query-output on this channel
      */
     void deployAndBlock(Query query, long milliseconds);
 
@@ -40,6 +40,7 @@ public interface QueryChannel {
      * that wraps the response to be
      * @param query The query to deploy
      * @return Future &lt Query.ResponseContainer&gt that will hold the query-result
+     * <b>//    Fuck this Future-stuff for now, should be rethought thoroughly</b>
      */
     Future<Query.ResponseContainer> deployGetFuture(Query query);
 

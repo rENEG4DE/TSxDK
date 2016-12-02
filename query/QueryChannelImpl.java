@@ -8,10 +8,7 @@ import com.tsxbot.tsxdk.query.engine.QueryEngine;
 import com.tsxbot.tsxdk.query.model.Query;
 
 import java.util.Optional;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * TSxBot2
@@ -57,22 +54,28 @@ public class QueryChannelImpl extends TSX implements QueryChannel {
         engine.stallOut(milliseconds);
     }
 
-    @Override
-    public Future<Query.ResponseContainer> deployGetFuture(Query query) {
-        final ExecutorService svc = Executors.newSingleThreadExecutor();
-        deploy(query);
-        return svc.submit(() -> {
-//            svc.awaitTermination(cfg.QUERY_MAXIMUMRESPONSETIMEOUT, TimeUnit.MILLISECONDS);
-            expect(query);
-            return query.getResponse();
-        });
-    }
+//    @Override
+//    public Future<Query.ResponseContainer> deployGetFuture(Query query) {
+//        final ExecutorService svc = Executors.newSingleThreadExecutor();
+//        deploy(query);
+//        return svc.submit(() -> {
+////            svc.awaitTermination(cfg.QUERY_MAXIMUMRESPONSETIMEOUT, TimeUnit.MILLISECONDS);
+//            expect(query);
+//            return query.getResponse();
+//        });
+//    }
 
+//    Fuck this Future-stuff for now, should be rethough thoroughly
+    public CompletableFuture<Query.ResponseContainer> deployGetFuture(Query query) {
+        deploy(query);
+        return CompletableFuture.supplyAsync(() -> expect().orElse(null));
+    }
 
     private Optional<Query.ResponseContainer> expect(Long microsecondDelay, Query query) {
         final Stopwatch watch = Stopwatch.createStarted();
         try {
             log.debug("Waiting for response of query {}", query.getQueryString());
+
             if (!query.latchAwait(microsecondDelay)) {
                 log.debug("Response-timeout {}μs (query={})", watch.elapsed(TimeUnit.MICROSECONDS), query.getQueryString());
                 return Optional.empty();
