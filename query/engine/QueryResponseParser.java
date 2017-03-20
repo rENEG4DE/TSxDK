@@ -64,22 +64,22 @@ class QueryResponseParser {
         final int[] row = {0};
         final Stopwatch watch = Stopwatch.createStarted();
 
-        Arrays.stream(response.split("[|]")).map(s -> {
+        Arrays.stream(response.split("[|]"))
+                .map(s -> {
                     final Properties properties = new Properties();
                     try {
-                        //seems a complex conversion is done fine by properties - no need to substitute
+                        //seems a complex conversion is done fine by java.util.Properties - no need to substitute
                         properties.load(new StringReader(s.replaceAll("[ ]", "\n")));
                     } catch (IOException e) {
                         log.error("Error transforming response-string", e);
                     }
                     return (Map) properties;
-                }
-        ).forEach(
-                map -> {
-                    map.forEach((key, val) -> table.put(row[0], (String) key, (String) val));
-                    row[0]++;
-                }
-        );
+                })
+                .forEach(map -> {
+                            map.forEach((key, val) -> table.put(row[0], (String) key, (String) val));
+                            row[0]++;
+                        }
+                );
 
         if (cfg.showProfiling()) {
             final long microsPassed = watch.elapsed(TimeUnit.MICROSECONDS);

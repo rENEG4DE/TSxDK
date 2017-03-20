@@ -1,6 +1,7 @@
 package com.tsxbot.tsxdk.query;
 
 import com.google.common.base.Stopwatch;
+import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.tsxbot.tsxdk.base.SystemDescriptors;
 import com.tsxbot.tsxdk.base.TSX;
@@ -116,6 +117,7 @@ public class QueryChannelImpl extends TSX implements QueryChannel {
             warnInterrupted();
             //discard logic for unresponded query
         }
+        EventBus bus = new EventBus();
     }
 
     @Override

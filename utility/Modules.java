@@ -5,13 +5,9 @@ package com.tsxbot.tsxdk.utility;/*
  * 05:08
  */
 
-import com.google.inject.Binding;
 import com.google.inject.Injector;
-import com.google.inject.Key;
 
-import java.util.Map;
 import java.util.StringJoiner;
-import java.util.function.BiFunction;
 
 public class Modules {
     public static String listInjectorMeta(Injector injector) {
